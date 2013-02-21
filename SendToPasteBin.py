@@ -3,10 +3,10 @@ import os
 import sublime, sublime_plugin
 from urllib import urlencode, urlopen
 
-PASTEBIN_URL = "http://pastebin.com/api/api_post.php"	
+PASTEBIN_URL = "http://pastebin.com/api/api_post.php"
 
 class SendToPasteBinPromptCommand( sublime_plugin.WindowCommand):
-	
+
 	def run(self):
 		self.window.show_input_panel("Paste Name:", "", self.on_done, None, None)
 
@@ -95,12 +95,13 @@ class SendToPasteBinCommand( sublime_plugin.TextCommand ):
 				sublime.status_message('Error sending to PasteBin: Nothing selected')
 			else:
 				args = {
-					'api_dev_key': '9defe36b1e886d4c35f7e6383095ac1e',
+					'api_dev_key': '4db0d4264dcb93c7ac161674df863d52',
 					'api_paste_code': text,
-					'api_paste_private': '0',
+					'api_paste_private': '1',
 					'api_option': 'paste',
 					'api_paste_format': syntax,
-					'api_paste_name': paste_name
+					'api_paste_name': paste_name,
+					'api_paste_expire_date': '1D'
 				}
 
 				response = urlopen(url=PASTEBIN_URL, data=urlencode(args)).read()
